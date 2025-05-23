@@ -1,0 +1,21 @@
+{
+  "name": "com.thazy.mframework",
+  "version": "0.1.0",
+  "displayName": "MFramework",
+  "description": "multimedia framework，用于快速开始您的项目，同时管理MFramework系列包的框架。",
+  "unity": "6.0.45",
+  "author": {
+    "name": "Pixelsmao",
+    "email": "1351820946@qq.com"
+  },
+  "documentation": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/T-Hazy/MFramework.git"
+  },
+  "dependencies": {
+    "com.unity.editorcoroutines": "1.0.0",
+    "com.pixelsmao.mframework.unitydatapersistence": "https://github.com/Pixelsmao/MFramework.UnityDataPersistence.git",
+    "com.pixelsmao.mframework.unityextensions": "https://github.com/Pixelsmao/MFramework.UnityExtensions.git"
+  }
+}

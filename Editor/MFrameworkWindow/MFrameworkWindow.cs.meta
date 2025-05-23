@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fdb9dbe8de6c8ff42a86c233ccc1adf9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - giteeUserConfig: {fileID: 11400000, guid: 9156701b8a99cdf4d9a4984d2524f1ed, type: 2}
+  - githubUserConfig: {fileID: 11400000, guid: 0f23139c77928074280ce660f54cbd70, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
