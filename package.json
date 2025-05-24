@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "displayName": "MFramework",
   "description": "multimedia framework，用于快速开始您的项目，同时管理MFramework系列包的框架。",
-  "unity": "2020.3.42",
+  "unity": "2020.3",
   "author": {
     "name": "Pixelsmao",
     "email": "1351820946@qq.com"
