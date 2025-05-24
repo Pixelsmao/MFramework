@@ -18,7 +18,7 @@ namespace MFramework.Internal
         /// <summary>
         /// 是否已经安装，检查属性值之前需要调用Refresh()刷新属性状态
         /// </summary>
-        public bool IsInstalled { get; set; }
+        public bool IsInstalled { get; protected set; }
 
         public void Install() => UnityPackageManager.Install(ManifestKey, ManifestValue);
 
@@ -38,5 +38,10 @@ namespace MFramework.Internal
         }
 
         public void Uninstall() => UnityPackageManager.Uninstall(ManifestKey, ManifestValue);
+
+        public void CheckInstalled()
+        {
+            IsInstalled = UnityPackageManager.IsInstalled(ManifestKey, ManifestValue);
+        }
     }
 }

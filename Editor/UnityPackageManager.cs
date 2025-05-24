@@ -38,7 +38,6 @@ namespace MFramework.Internal
             // ReSharper disable once PossibleNullReferenceException
             foreach (var keyValuePair in newManifest.dependencies)
             {
-                Debug.Log(keyValuePair);
                 // ReSharper disable once PossibleNullReferenceException
                 if (!manifest.IsInstalled(manifestKey, manifestValue))
                 {
@@ -65,7 +64,7 @@ namespace MFramework.Internal
             foreach (var keyValuePair in newManifest.dependencies)
             {
                 // ReSharper disable once PossibleNullReferenceException
-                if (manifest.IsInstalled(manifestKey,manifestValue))
+                if (manifest.IsInstalled(manifestKey, manifestValue))
                 {
                     manifest?.RemoveManifest(manifestKey, manifestValue);
                 }

@@ -69,6 +69,7 @@ public class GithubUser : User
                     {
                         if (!fileInfo.Name.ToLower().Contains("package.json")) continue;
                         githubRepository.IsUnityPackage = true;
+                        githubRepository.CheckInstalled();
                         yield break;
                     }
                 }

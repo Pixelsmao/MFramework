@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
@@ -67,7 +66,9 @@ namespace MFramework.Internal
                         foreach (var fileInfo in fileInfos)
                         {
                             if (!fileInfo.Name.ToLower().Contains("package.json")) continue;
-                            if (giteeRepository != null) giteeRepository.IsUnityPackage = true;
+                            // ReSharper disable once PossibleNullReferenceException
+                            giteeRepository.IsUnityPackage = true;
+                            giteeRepository.CheckInstalled();
                             yield break;
                         }
                     }

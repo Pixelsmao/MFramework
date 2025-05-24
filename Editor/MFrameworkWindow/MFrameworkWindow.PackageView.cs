@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using MFramework.EditorExtensions;
 using MFramework.UnityApplication;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
@@ -77,13 +78,6 @@ namespace MFramework.Internal
                 menuOptionTextAnchor = TextAnchor.MiddleCenter
             };
             giteeUser.TryRequestRepositories();
-            foreach (var repository in giteeUser.repositories)
-            {
-                repository.IsInstalled =
-                    UnityPackageManager.IsInstalled(repository.ManifestKey, repository.ManifestValue);
-            }
-
-            //TODO 完善github请求信息
             githubUser.TryRequestRepositories();
             packageMenu.AddMenuOption("Github", PackageView_GithubGUI);
             packageMenu.AddMenuOption("Gitee", PackageView_GiteeGUI);
@@ -148,7 +142,7 @@ namespace MFramework.Internal
                 GUI.enabled = true;
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(40);
-                EditorGUIDrawer.DrawUrl(string.Empty, package.url, () => package.Locate());
+                EditorGUIDrawer.DrawLink(package.url, () => package.Locate());
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
 
@@ -214,36 +208,6 @@ namespace MFramework.Internal
             EditorGUILayout.HelpBox("国内环境请禁用Unity系统代理并从Gitee进行安装;" +
                                     "\n国际环境请启用Unity系统代理并从Github进行安装。", MessageType.Info);
             EditorGUILayout.EndVertical();
-            //EditorGUILayout.BeginVertical();
-            // if (GUILayout.Button(new GUIContent("Enable Proxy", "启用Unity系统代理，选择是否重启编辑器。"), GUI.skin.button,
-            //         GUILayout.Width(100)))
-            // {
-            //     if (EditorUtility.DisplayDialog("Unity系统代理变更提醒", "更改Unity系统代理需要重启编辑器才能生效，请确认是否有未保存的工作，然后立即重启编辑器？",
-            //             "立即重启", "稍后手动重启"))
-            //     {
-            //         ChangeProxy(true, true);
-            //     }
-            //     else
-            //     {
-            //         ChangeProxy(true, false);
-            //     }
-            // }
-            //
-            // if (GUILayout.Button(new GUIContent("Disable Proxy", "禁用Unity系统代理，选择是否重启编辑器。"), GUI.skin.button,
-            //         GUILayout.Width(100)))
-            // {
-            //     if (EditorUtility.DisplayDialog("Unity系统代理变更提醒", "更改Unity系统代理需要重启编辑器才能生效，请确认是否有未保存的工作，然后立即重启编辑器？",
-            //             "立即重启", "稍后手动重启"))
-            //     {
-            //         ChangeProxy(false, true);
-            //     }
-            //     else
-            //     {
-            //         ChangeProxy(false, false);
-            //     }
-            // }
-
-            //EditorGUILayout.EndVertical();
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space(10);
@@ -268,8 +232,10 @@ namespace MFramework.Internal
                                         "\n1. MFramework目录中的远程账号配置文件是否填写正确；" +
                                         "\n2. 如果是国内环境，请检查是否清除了Unity系统代理全局变量，同时计算机关闭网络全局代理；" +
                                         "\n3. 如果是国际环境，请检查是否配置了了Unity系统代理全局变量，同时计算机开启网络全局代理；", MessageType.Warning);
-                EditorGUIDrawer.DrawUrl("有关Unity代理设置，请参考：",
-                    "https://docs.unity.cn/cn/2020.3/Manual/upm-config-network.html");
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("有关Unity系统代理配置请参考：");
+                EditorGUIDrawer.DrawLink("https://docs.unity.cn/cn/2020.3/Manual/upm-config-network.html");
+                EditorGUILayout.EndHorizontal();
             }
 
             foreach (var repository in user.repositories)
@@ -283,9 +249,13 @@ namespace MFramework.Internal
                 //包信息
                 EditorGUILayout.BeginVertical();
                 EditorGUILayout.BeginHorizontal(GUILayout.Height(30));
-
                 GUILayout.Label(new GUIContent($" {repository.Name}", icon), packageNameStyle,
                     GUILayout.Height(35));
+                if (repository.IsInstalled)
+                {
+                    GUILayout.Label(EditorGUIIcons.LotusLeafCheckGree);
+                }
+                GUILayout.FlexibleSpace();
                 EditorGUILayout.EndHorizontal();
                 GUI.enabled = false;
                 EditorGUILayout.BeginHorizontal();
@@ -304,7 +274,7 @@ namespace MFramework.Internal
                 GUI.enabled = true;
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(40);
-                EditorGUIDrawer.DrawUrl("", repository.HtmlUrl);
+                EditorGUIDrawer.DrawLink(repository.HtmlUrl);
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(40);

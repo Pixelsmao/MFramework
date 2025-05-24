@@ -1,59 +1,47 @@
 using System;
 using System.Reflection;
+using MFramework.EditorExtensions;
 using UnityEditor;
 using UnityEngine;
 
 namespace MFramework.Internal
 {
-    internal partial class MFrameworkWindow : EditorWindowCreator<MFrameworkWindow>
+    internal partial class MFrameworkWindow : EditorWindowBase<MFrameworkWindow>
     {
-        private RectArea titleArea;
-        private RectArea mainMenuArea;
         private HorizontalMenuOptionGroup mainMenu;
 
         private void OnEnable()
         {
-            //标题
-            InitTitle();
             //主菜单
             InitMainMenu();
             //包视图
             InitPackageView();
         }
 
-        private void InitTitle()
-        {
-            titleArea = new RectArea(() =>
-            {
-                EditorGUILayout.Space(5);
-                GUILayout.Label("MFramework Manager", GUIStyleLibrary.MainTitleStyle);
-                GUILayout.FlexibleSpace();
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("Wonderful things start from here.", GUIStyleLibrary.SubTitleStyle);
-                GUILayout.Label("Wonderful things start from here.", GUIStyleLibrary.SubTitleStyle);
-                GUILayout.Label("Wonderful things start from here.", GUIStyleLibrary.SubTitleStyle);
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.Space(10);
-            })
-            {
-                fillColor = new Color(0.2f, 0.2f, 0.2f),
-                outlineColor = new Color(0.13f, 0.13f, 0.13f),
-                outlineWidth = 1
-            };
-        }
-
         private void InitMainMenu()
         {
             mainMenu = new HorizontalMenuOptionGroup();
-            mainMenu.AddMenuOption("Package Manager", EditorTexturesLibrary.packageInstalled.image,
+            mainMenu.AddMenuOption("Package Manager", EditorGUIIcons.PackageInstalled.image,
                 () => packageMenu.DrawMenuGroup());
-            mainMenu.AddMenuOption("Editor Tools", EditorTexturesLibrary.unityLogo.image, EditorToolsViewGUI);
+            mainMenu.AddMenuOption("Editor Tools", EditorGUIIcons.UnityLoge.image, EditorToolsViewGUI);
             InitPackageViewMenu();
         }
 
         protected void OnGUI()
         {
-            var titleRect = titleArea.DrawRectArea(Vector2.zero, new Vector2(this.position.width, 80));
+            var titleRect = EditorGUIDrawer.DrawRectArea(Vector2.zero, new Vector2(this.position.width, 80),
+                new Color(0.2f, 0.2f, 0.2f), new Color(0.13f, 0.13f, 0.13f), 1, () =>
+                {
+                    EditorGUILayout.Space(5);
+                    GUILayout.Label("MFramework Manager", EditorGUIStyles.MainTitleStyle);
+                    GUILayout.FlexibleSpace();
+                    EditorGUILayout.BeginHorizontal();
+                    GUILayout.Label("Wonderful things start from here.", EditorGUIStyles.SubTitleStyle);
+                    GUILayout.Label("Wonderful things start from here.", EditorGUIStyles.SubTitleStyle);
+                    GUILayout.Label("Wonderful things start from here.", EditorGUIStyles.SubTitleStyle);
+                    EditorGUILayout.EndHorizontal();
+                    EditorGUILayout.Space(10);
+                });
             var mainMenuPos = new Vector2(0, titleRect.center.y);
             var mainMenuSize = new Vector2(position.width, position.height - titleRect.center.y);
             var mainMenuRect = new Rect(mainMenuPos, mainMenuSize);
@@ -66,9 +54,9 @@ namespace MFramework.Internal
         }
 
         [MenuItem("MFramework/MFrameworkWindow"), MenuItem("Assets/MFramework", priority = 0)]
-        public new static void ShowWindow()
+        public static void ShowMainWindow()
         {
-            EditorWindowCreator<MFrameworkWindow>.ShowWindow();
+            ShowWindow();
         }
 
         protected Type StringToType(string typeName)

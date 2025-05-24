@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using MFramework.EditorExtensions;
 using UnityEditor;
 using UnityEngine;
 
@@ -60,15 +61,15 @@ namespace MFramework.Internal
             switch (type)
             {
                 case PackageType.Unknown:
-                    return EditorTexturesLibrary.unityLogo.image;
+                    return EditorGUIIcons.UnityLoge.image;
                 case PackageType.MFramework:
-                    return EditorTexturesLibrary.MFramework;
+                    return EditorGUIIcons.UnityLoge.image;
                 case PackageType.Favorite:
-                    return EditorTexturesLibrary.unityLogo.image;
+                    return EditorGUIIcons.UnityLoge.image;
                 case PackageType.Offline:
-                    return EditorTexturesLibrary.unityLogo.image;
+                    return EditorGUIIcons.UnityLoge.image;
                 case PackageType.Solution:
-                    return EditorTexturesLibrary.unityLogo.image;
+                    return EditorGUIIcons.UnityLoge.image;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

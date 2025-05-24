@@ -91,7 +91,7 @@ namespace MFramework.Internal
         [JsonProperty("default_branch")] public string DefaultBranch { get; set; }
         [JsonProperty("permissions")] public Permissions permissions { get; set; }
         public override string Author => Owner.Login;
-        public override bool IsUnityPackage { get; set; }
+        public override bool IsUnityPackage { get;  set; }
         public override string ManifestKey => $"com.{Owner.Login.ToLower()}.{Name.ToLower()}";
 
         /// <summary>
